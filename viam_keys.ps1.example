@@ -1,0 +1,3 @@
+# Copy to viam_keys.ps1 (gitignored) and fill in from Viam app > armfarm14 > CONNECT > API keys
+$env:VIAM_API_KEY_ID = "YOUR_API_KEY_ID"
+$env:VIAM_API_KEY = "YOUR_API_KEY"

@@ -1,0 +1,42 @@
+# Secrets / credentials
+viam_keys.ps1
+viam_keys.*.ps1
+!.gitignore
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets.*
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Datasets & large generated artifacts
+dataset_raw/
+train_images/
+prepared_v3/
+prepared_v3a/
+prepared_v3b/
+prepared_v3c/
+prepared_ext/
+*.tar.gz
+*.zip
+*.7z
+
+# Local logs / caches / IDE
+prep/moves.log
+prep/_debug/
+prep/_rejected_thumbs/
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.claude_write_test
