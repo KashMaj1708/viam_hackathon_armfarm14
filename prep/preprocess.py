@@ -153,12 +153,20 @@ def preprocess(img_rgb: np.ndarray, out_size: int = 256) -> tuple[np.ndarray, di
         )
     ]
     # Prefer the component whose centroid is closest to image centre when close in area
-    if len(comps) >= 2 and comps[1]["area"] >= 0.5 * comps[0]["area"]:
+    # The arm centres the camera on the target part, so the part to score is the one at (or
+    # nearest) the image centre, not simply the biggest blob (a long neighbour can be bigger).
+    if len(comps) >= 2:
         cx0, cy0 = w0 / 2.0, h0 / 2.0
-        comps = sorted(
-            comps,
-            key=lambda c: (np.hypot(c["cx"] - cx0, c["cy"] - cy0), -c["area"]),
-        )
+        big = comps[0]["area"]
+
+        def _d(c):
+            dx = max(c["x"] - cx0, 0.0, cx0 - (c["x"] + c["w"]))
+            dy = max(c["y"] - cy0, 0.0, cy0 - (c["y"] + c["h"]))
+            return float(np.hypot(dx, dy))
+        cand = [c for c in comps if c["area"] >= max(80, 0.03 * big)]
+        if cand:
+            pick = min(cand, key=lambda c: (_d(c), -c["area"]))
+            comps = [pick] + [c for c in comps if c is not pick]
 
     debug = {
         "tape_frac": tape_frac,

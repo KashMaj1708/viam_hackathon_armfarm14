@@ -1,6 +1,6 @@
 # One-click setup and run for auto_pick.py (armfarm14)
 $ErrorActionPreference = "Continue"
-Set-Location -Path $PSScriptRoot
+Set-Location -Path (Split-Path $PSScriptRoot -Parent)   # run from the repo root (shared .venv and viam_keys.ps1)
 
 Write-Host "== armfarm14 auto pick ==" -ForegroundColor Cyan
 
@@ -27,7 +27,7 @@ if ($LASTEXITCODE -ne 0) {
 
 # 3. Credentials (kept only in this window)
 $env:VIAM_MACHINE_ADDRESS = "armfarm14-main.310sld03v2.viam.cloud"
-if (Test-Path "$PSScriptRoot\viam_keys.ps1") { . "$PSScriptRoot\viam_keys.ps1" }
+if (Test-Path "viam_keys.ps1") { . "viam_keys.ps1" }
 if (-not $env:VIAM_API_KEY_ID) { $env:VIAM_API_KEY_ID = Read-Host "API key ID (Viam app > armfarm14 > CONNECT > API keys)" }
 if (-not $env:VIAM_API_KEY) {
     $sec = Read-Host "API key" -AsSecureString
@@ -37,11 +37,11 @@ if (-not $env:VIAM_API_KEY) {
 # 4. Dry run, then ask before moving
 while ($true) {
     Write-Host "`n--- Dry run (arm does not move) ---" -ForegroundColor Cyan
-    & $vpy auto_pick.py
+    & $vpy experiments\auto_pick.py
     $ans = Read-Host "`nPick it for real? Hand near the E-stop. [y = pick / r = re-detect / q = quit]"
     if ($ans -eq "y") {
         Write-Host "--- Picking ---" -ForegroundColor Yellow
-        & $vpy auto_pick.py --execute
+        & $vpy experiments\auto_pick.py --execute
         $again = Read-Host "`nRun again? [y/N]"
         if ($again -ne "y") { break }
     } elseif ($ans -eq "r") { continue } else { break }

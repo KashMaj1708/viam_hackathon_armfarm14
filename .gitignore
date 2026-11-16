@@ -1,7 +1,8 @@
-# Secrets / credentials
+# ---- Secrets / credentials (never commit) --------------------------------
 viam_keys.ps1
 viam_keys.*.ps1
-!.gitignore
+!viam_keys.ps1.example
+anthropic_key.ps1
 .env
 .env.*
 *.pem
@@ -9,7 +10,7 @@ viam_keys.*.ps1
 credentials.json
 secrets.*
 
-# Python
+# ---- Python ----------------------------------------------------------------
 .venv/
 venv/
 __pycache__/
@@ -18,7 +19,7 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 
-# Datasets & large generated artifacts
+# ---- Datasets (large; live in Viam datasets instead) -----------------------
 dataset_raw/
 train_images/
 prepared_v3/
@@ -30,13 +31,25 @@ prepared_ext/
 *.zip
 *.7z
 
-# Local logs / caches / IDE
+# ---- Run output (generated on the station every run) -----------------------
+runs/
+test_runs/
+grasp_checks/
+track3_log.csv
+agent_review_log.csv
+overview_last.jpg
+screen_last.jpg
+
+# ---- Local scratch / archive -----------------------------------------------
+_archive/
 prep/moves.log
 prep/_debug/
 prep/_rejected_thumbs/
 *.log
+.claude_write_test
+
+# ---- OS / IDE --------------------------------------------------------------
 .DS_Store
 Thumbs.db
 .idea/
 .vscode/
-.claude_write_test

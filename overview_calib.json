@@ -1,0 +1,81 @@
+{
+ "note": "overview-cam pixel (in the reference frame overview_ref.jpg) -> world (x,y) on the table. Refit 14 Nov 18:40 from 7 gripper-fingertip points (two heights, extrapolated to the table), each frame registered to the reference to cancel camera drift. Residual rms 2.7 mm, leave-one-out 2-11 mm. Frames are registered to overview_ref.jpg at runtime, so small bumps are corrected; recalibrate after a big move.",
+ "H_pix_to_world": [
+  [
+   1.8680843095490949,
+   -0.8375223802449677,
+   654.4180570081342
+  ],
+  [
+   -1.6450814416416493,
+   -6.26036978376964,
+   1854.485399436917
+  ],
+  [
+   -0.0011806478892147753,
+   0.011430760905160006,
+   1.0
+  ]
+ ],
+ "points_world": [
+  [
+   400.0,
+   -210.0
+  ],
+  [
+   250.0,
+   -210.0
+  ],
+  [
+   150.0,
+   -210.0
+  ],
+  [
+   180.0,
+   -60.0
+  ],
+  [
+   205.0,
+   60.0
+  ],
+  [
+   450.0,
+   -140.0
+  ],
+  [
+   160.0,
+   -120.0
+  ]
+ ],
+ "points_pix": [
+  [
+   530.5,
+   274.8
+  ],
+  [
+   389.8,
+   340.4
+  ],
+  [
+   258.4,
+   408.6
+  ],
+  [
+   175.1,
+   288.7
+  ],
+  [
+   129.9,
+   228.6
+  ],
+  [
+   498.5,
+   235.0
+  ],
+  [
+   199.8,
+   333.9
+  ]
+ ],
+ "reference_image": "overview_ref.jpg"
+}

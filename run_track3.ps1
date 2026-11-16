@@ -21,13 +21,18 @@ $vpy = ".\.venv\Scripts\python.exe"
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Installing viam-sdk (one time)..."
     & $vpy -m pip install --quiet --upgrade pip
-    & $vpy -m pip install --quiet viam-sdk
-    if ($LASTEXITCODE -ne 0) { Write-Host "pip install viam-sdk failed (see above)." -ForegroundColor Red; Read-Host "Press Enter to close"; exit 1 }
+    & $vpy -m pip install --quiet -r requirements.txt
+    if ($LASTEXITCODE -ne 0) { Write-Host "pip install failed (see above)." -ForegroundColor Red; Read-Host "Press Enter to close"; exit 1 }
 }
 
 # 3. Credentials (kept only in this window)
 $env:VIAM_MACHINE_ADDRESS = "armfarm14-main.310sld03v2.viam.cloud"
 if (Test-Path "$PSScriptRoot\viam_keys.ps1") { . "$PSScriptRoot\viam_keys.ps1" }
+# Fully autonomous: PatchCore only (no Claude agent in the loop).
+# To re-enable: $env:AGENT_REVIEW="all"; $env:AGENT_SCREEN="on"; . .\anthropic_key.ps1
+$env:AGENT_REVIEW = "off"
+$env:AGENT_SCREEN = "off"
+Write-Host "Agent review: off (fully autonomous)" -ForegroundColor Cyan
 if (-not $env:VIAM_API_KEY_ID) { $env:VIAM_API_KEY_ID = Read-Host "API key ID (Viam app > armfarm14 > CONNECT > API keys)" }
 if (-not $env:VIAM_API_KEY) {
     $sec = Read-Host "API key" -AsSecureString
